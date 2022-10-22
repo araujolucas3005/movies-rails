@@ -1,0 +1,37 @@
+<%= form_with(model: rating) do |form| %>
+  <% if rating.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(rating.errors.count, "error") %> prohibited this rating from being saved:</h2>
+
+      <ul>
+        <% rating.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :img_url, style: "display: block" %>
+    <%= form.text_field :img_url %>
+  </div>
+
+  <div>
+    <%= form.label :rating, style: "display: block" %>
+    <%= form.number_field :rating, in:1.0..10.0, step: 0.1, required: true %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_field :description, required: true %>
+  </div>
+
+  <div>
+    <%= form.label :imdb_id, style: "display: block" %>
+    <%= form.text_field :imdb_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
