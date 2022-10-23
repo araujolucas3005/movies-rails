@@ -1,14 +1,143 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Ratings</h1>
-
-<div id="ratings">
-  <% @ratings.each do |rating| %>
-    <%= render rating %>
-    <p>
-      <%= link_to "Show this rating", rating %>
-    </p>
-  <% end %>
+<div class="modal-bg">
+  <div class="modal">
+    <header>
+      <h3>Adicionar Avaliação</h3>
+      <img src="utils/x-solid.svg" alt="fechar modal" onclick="closeModal()">
+    </header>
+    <section>
+      <div onclick="closeSuggestions()">
+        <%= render "form", rating: @rating %>
+      </div>
+    </section>
+  </div>
 </div>
 
-<%= link_to "New rating", new_rating_path %>
+<div class="title">
+  <h1>Seus filmes</h1>
+  <hr>
+  <button class="openModalBtn" onclick="openModal()" type="button">Adicionar Avaliação</button>
+</div>
+
+<div class="container">
+  <div class="slider">
+    <% @ratings.each do |rating| %>
+      <%= render rating %>
+    <% end %>
+  </div>
+</div>
+
+<script type="text/javascript" src="/jquery.js"></script>
+<script type="text/javascript" src="/slick/slick/slick.min.js"></script>
+<script type="text/javascript">
+    const suggestions = document.getElementById("suggestions");
+    let movies = [];
+
+    function openModal() {
+      document.getElementsByClassName("modal-bg")[0].style.display = 'flex';
+    }
+
+    function closeModal()
+    {
+      document.getElementById("movie-id").value = '0';
+      document.getElementById("movie-img").value = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png';
+      document.getElementById("movie-title").value = '';
+      document.getElementById("movie-rate").value = '';
+      document.getElementsByClassName("modal-bg")[0].style.display = 'none';
+    }
+
+    function setMovie(id, imgUrl, title)
+    {
+      closeSuggestions();
+      const idInput = document.getElementById("movie-id");
+      idInput.value = id;
+      const imgInput = document.getElementById("movie-img");
+      imgInput.value = imgUrl;
+      const titleInput = document.getElementById("movie-title");
+      titleInput.value = title;
+    }
+
+    function closeSuggestions() {
+      suggestions.style.opacity = '0.0';
+      suggestions.style.visibility = "hidden";
+    }
+
+    async function movieSuggestion() {
+      let value = document.getElementById("movie-title").value.split(' ').join('%20');
+      const newMovies = [];
+
+      if(value.length != 0) {
+        const url = 'https://v2.sg.media-imdb.com/suggestion/'+ value.charAt(0) +'/'+ value +'.json';
+  
+        await $.get(url, (data) => {
+          for (let i = 0; i < 3; i++) {
+            newMovies.push(data.d[i]);
+          }
+        });
+
+      }
+
+      suggestions.innerHTML = '';
+
+      movies = newMovies;
+      
+      if (movies.length != 0)
+      {
+        movies.forEach(movie => {
+          const suggestion = document.createElement("div");
+          suggestion.classList.add("suggestion");
+          if (movie.id != undefined && movie.i != undefined)
+            suggestion.setAttribute('onclick', 'setMovie("'+movie.id+'","'+movie.i.imageUrl+'","'+movie.l+'")');
+          const img = document.createElement("img");
+          if (movie.i != undefined)
+            img.setAttribute("src", movie.i.imageUrl);
+          img.setAttribute("alt", movie.l);
+          suggestion.appendChild(img);
+          const p = document.createElement("p");
+          p.innerHTML = movie.l;
+          suggestion.appendChild(p);
+          suggestions.appendChild(suggestion);
+        });
+
+        suggestions.style.opacity = '1.0';
+        suggestions.style.visibility = "visible";
+      }
+    }
+    
+    function initializeSlick() {
+      $('.slider').slick({
+        infinite: false,
+        speed: 300,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3,
+              infinite: true,
+            }
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2
+            }
+          },
+          {
+            breakpoint: 480,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              centerMode: true
+            }
+          }
+        ]
+      });
+    }
+
+    $(document).ready(function() {
+      initializeSlick();
+    });
+  </script>

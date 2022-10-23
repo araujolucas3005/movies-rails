@@ -10,28 +10,15 @@
       </ul>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :img_url, style: "display: block" %>
-    <%= form.text_field :img_url %>
-  </div>
-
-  <div>
-    <%= form.label :rating, style: "display: block" %>
-    <%= form.number_field :rating, in:1.0..10.0, step: 0.1, required: true %>
-  </div>
-
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_field :description, required: true %>
-  </div>
-
-  <div>
-    <%= form.label :imdb_id, style: "display: block" %>
-    <%= form.text_field :imdb_id %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
+  <%= form.text_field :imdb_id, id:"movie-id", value:"0", required: true %>
+  <%= form.text_field :img_url, id:"movie-img", value:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png", required: true %>
+  <input type="text" id="movie-title" oninput="movieSuggestion()" placeholder="Título do filme">
+  <%= 
+    content_tag :div, id: "suggestions" do
+    end 
+  %>
+  <%= form.text_area :description, required: true, cols:"30", rows:"10", placeholder:"Digite sua avaliação..." %>
+  <%= form.label :rating, value:"Nota:", style: "display: block" %>
+  <%= form.number_field :rating, in:1.0..10.0, step: 0.1, required: true, id:"movie-rate" %>
+  <%= form.submit id:"movie-submit", value:"Cadastrar" %>
 <% end %>

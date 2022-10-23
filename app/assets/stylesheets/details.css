@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+  box-sizing: border-box;
+  margin: 0;
+  background-color: #7100BC;
+  color: white;
+  font-family: 'Roboto';
+  position: relative;
+}
+
+.containerShow {
+  display: flex;
+  align-items: center;
+  padding: 45px;
+  justify-content: center;
+}
+
+.movie-image {
+  -ms-flex-align: center;
+}
+
+.movie-image img {
+  border-radius: 8px;
+  width: 100%;
+  min-width: 250px;
+  min-height: 312.5px;
+  max-width: 400px;
+  max-height: 500px;
+}
+
+.rate-details {
+  margin-left: 45px;
+  width: 100%;
+  min-width: 290px;
+  max-width: 450px;
+  max-height: 500px;
+  text-align: left;
+}
+
+.rate-details .rate {
+  margin-bottom: 60px;
+  font-size: 32px;
+}
+
+.titleShow {
+  padding: 45px;
+  font-size: 32px;
+  text-align: center;
+  position: relative;
+}
+
+.back-btn {
+  position: absolute;
+  width: 55px;
+  left: 85px;
+  top: 0;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  cursor: pointer;
+  transition: all ease-in-out .3s;
+}
+
+.back-btn:hover {
+  transform: scale(0.9);
+}
+
+@media (max-width: 767px) {
+  .movie-image {
+    margin-left: auto;
+  }
+
+  .back-btn {
+    width: 25px;
+    left: 25px;
+  }
+
+  .titleShow {
+    padding: 15px;
+    font-size: 18px;
+  }
+
+  .containerShow {
+    width: -webkit-fill-available;
+    flex-direction: column;
+  }
+
+  .rate-details .rate {
+    margin-bottom: 40px;
+    font-size: 26px;
+  }
+}

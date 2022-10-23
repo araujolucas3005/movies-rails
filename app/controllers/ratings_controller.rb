@@ -4,19 +4,11 @@ class RatingsController < ApplicationController
   # GET /ratings or /ratings.json
   def index
     @ratings = Rating.all
+    @rating = Rating.new
   end
 
   # GET /ratings/1 or /ratings/1.json
   def show
-  end
-
-  # GET /ratings/new
-  def new
-    @rating = Rating.new
-  end
-
-  # GET /ratings/1/edit
-  def edit
   end
 
   # POST /ratings or /ratings.json
@@ -28,20 +20,7 @@ class RatingsController < ApplicationController
         format.html { redirect_to rating_url(@rating), notice: "Rating was successfully created." }
         format.json { render :show, status: :created, location: @rating }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @rating.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /ratings/1 or /ratings/1.json
-  def update
-    respond_to do |format|
-      if @rating.update(rating_params)
-        format.html { redirect_to rating_url(@rating), notice: "Rating was successfully updated." }
-        format.json { render :show, status: :ok, location: @rating }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :index, status: :unprocessable_entity }
         format.json { render json: @rating.errors, status: :unprocessable_entity }
       end
     end
@@ -52,7 +31,7 @@ class RatingsController < ApplicationController
     @rating.destroy
 
     respond_to do |format|
-      format.html { redirect_to ratings_url, notice: "Rating was successfully destroyed." }
+      format.html { redirect_to ratings_url(@ratings), notice: "Rating was successfully destroyed." }
       format.json { head :no_content }
     end
   end

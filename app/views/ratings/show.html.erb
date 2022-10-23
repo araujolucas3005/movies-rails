@@ -1,10 +1,37 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @rating %>
-
-<div>
-  <%= link_to "Edit this rating", edit_rating_path(@rating) %> |
-  <%= link_to "Back to ratings", ratings_path %>
-
-  <%= button_to "Destroy this rating", @rating, method: :delete %>
+<div class="titleShow">
+  <%= link_to ratings_path , class: "movie-card" do %>
+    <img src="/utils/arrow-left.svg" class="back-btn" />
+  <% end %>
+  <h1 class="movie-title">Título do Filme</h1>
+  <hr>
 </div>
+<div class="containerShow">
+  <div class="movie-image">
+    <%= image_tag(@rating.img_url, id: "movie-image") %>
+  </div>
+  <div class="rate-details">
+    <h3 class="rate">
+      <%= @rating.rating %> / 10.00
+    </h3>
+    <div class="description">
+      <%= @rating.description %>
+    </div>
+    <%= button_to "Deletar Avaliação", @rating, method: :delete, class: "deleteMovie" %>
+  </div>
+</div>
+
+<script type="text/javascript" src="/jquery.js"></script>
+
+<script type="text/javascript">
+  jQuery(document).ready(function(){
+    const url = 'http://www.omdbapi.com/?i=<%= @rating.imdb_id %>&apikey=7a4ec86c';
+    
+    $.get(url, (data, status) => {
+      if (status == 'success') {
+        document.getElementsByClassName("movie-title")[0].innerText = data.Title;
+      }
+    });
+  });
+</script>

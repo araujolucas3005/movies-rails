@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>RailsMovies</title>
+    <title>Movie Catalog</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "styles", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "details", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <link rel="stylesheet" type="text/css" href="/slick/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="/slick/slick/slick-theme.css"/>
   </head>
 
   <body>
