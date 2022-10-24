@@ -1,9 +1,10 @@
 class RatingsController < ApplicationController
-  before_action :set_rating, only: %i[ show edit update destroy ]
+  before_action :set_rating,            only: %i[ edit update destroy ]
+  before_action :set_formatted_rating,  only: %i[ show ]
 
   # GET /ratings or /ratings.json
   def index
-    @ratings = Rating.all
+    @ratings = format_ratings(Rating.all)
     @rating = Rating.new
   end
 
@@ -40,6 +41,20 @@ class RatingsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_rating
       @rating = Rating.find(params[:id])
+    end
+
+    def format_rating(r)
+      rating = r.clone
+      rating[:rating] = rating[:rating].ceil(1)
+      rating
+    end
+
+    def set_formatted_rating
+      @rating = format_rating(Rating.find(params[:id]))
+    end
+    
+    def format_ratings(ratings)
+      ratings.map(&method(:format_rating))
     end
 
     # Only allow a list of trusted parameters through.

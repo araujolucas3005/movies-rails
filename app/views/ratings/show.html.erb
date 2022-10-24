@@ -23,6 +23,9 @@
     <div class="description">
       <%= @rating.description %>
     </div>
+    <div class="created_at">
+      <%= @rating.created_at.strftime("%d/%m/%Y") %>
+    </div>
     <%= button_to "Deletar Avaliação", @rating, method: :delete, class: "deleteMovie", onclick: "beforeDelete()" %>
   </div>
 </div>
