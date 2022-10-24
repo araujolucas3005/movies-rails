@@ -178,6 +178,11 @@ body {
   margin-bottom: 30px;
 }
 
+.movie-title {
+  width: 70%;
+  margin: 0 auto;
+}
+
 .openModalBtn, .deleteMovie {
   padding: 15px 10px;
   border-radius: 8px;
@@ -216,7 +221,7 @@ body {
   max-height: 437.5px;
   border-radius: 12px;
   overflow: hidden;
-  margin: 0px 24px;
+  margin: 0px 24px !important;
   cursor: pointer;
   transition: all ease-in-out .3s;
   display: flex !important;
@@ -263,4 +268,56 @@ body {
     width: 90%;
     height: 90%;
   }
+}
+
+@keyframes noticeDisappear {
+  from {}
+  to {visibility: hidden;}
+}
+
+.notice-card, .notice-card2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 270px;
+  height: 60px;
+  background-color: #77AD78;
+  color: white;
+  font-size: 14px;
+  animation-duration: 5.0s;
+  animation-fill-mode: forwards;
+  animation-name: noticeDisappear;
+}
+
+.notice-card2 {
+  display: none;
+}
+
+@keyframes barTimeAnim {
+  from {width: 100%;}
+  to {width: 0%;}
+}
+
+.notice-card .time-bar, .notice-card2 .time-bar {
+  height: 6px;
+  width: 100%;
+  background-color: #557257;
+  animation-duration: 5.0s;
+  animation-name: barTimeAnim;
+}
+
+.notice-card p, .notice-card2 p {
+  padding: 8px;
+  user-select: none;
+}
+
+.closeNoticeBtn {
+  width: 8px;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  cursor: pointer;
 }

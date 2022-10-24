@@ -1,7 +1,12 @@
-<p style="color: green"><%= notice %></p>
+<% if notice %>
+  <div class="notice-card">
+    <div class="time-bar"></div>
+    <p><%= notice %></p>
+  </div>
+<% end %>
 
 <div class="titleShow">
-  <%= link_to ratings_path , class: "movie-card" do %>
+  <%= link_to ratings_path , class: "movie-card", onclick: "reloadPage()" do %>
     <img src="/utils/arrow-left.svg" class="back-btn" />
   <% end %>
   <h1 class="movie-title">Título do Filme</h1>
@@ -18,13 +23,25 @@
     <div class="description">
       <%= @rating.description %>
     </div>
-    <%= button_to "Deletar Avaliação", @rating, method: :delete, class: "deleteMovie" %>
+    <%= button_to "Deletar Avaliação", @rating, method: :delete, class: "deleteMovie", onclick: "beforeDelete()" %>
   </div>
 </div>
 
 <script type="text/javascript" src="/jquery.js"></script>
 
 <script type="text/javascript">
+  function beforeDelete() {
+    localStorage.setItem("notice", "Avaliação deletada com sucesso");
+    reloadPage();
+  }
+
+  function reloadPage() {
+    const t = setTimeout(() => {
+      localStorage.setItem("timeout", t);
+      window.location.reload();
+    }, 200);
+  }
+
   jQuery(document).ready(function(){
     const url = 'http://www.omdbapi.com/?i=<%= @rating.imdb_id %>&apikey=7a4ec86c';
     

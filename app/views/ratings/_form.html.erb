@@ -12,7 +12,7 @@
   <% end %>
   <%= form.text_field :imdb_id, id:"movie-id", value:"0", required: true %>
   <%= form.text_field :img_url, id:"movie-img", value:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png", required: true %>
-  <input type="text" id="movie-title" oninput="movieSuggestion()" placeholder="Título do filme">
+  <input type="text" id="movie-title" oninput="movieSuggestion()" placeholder="Título do filme" autocomplete="off">
   <%= 
     content_tag :div, id: "suggestions" do
     end 

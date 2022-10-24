@@ -1,8 +1,20 @@
+<% if notice %>
+  <div class="notice-card">
+    <div class="time-bar"></div>
+    <p><%= notice %></p>
+  </div>
+<% end %>
+
+<div class="notice-card2">
+  <div class="time-bar"></div>
+  <p id="notice-p"></p>
+</div>
+
 <div class="modal-bg">
   <div class="modal">
     <header>
       <h3>Adicionar Avaliação</h3>
-      <img src="utils/x-solid.svg" alt="fechar modal" onclick="closeModal()">
+      <img src="/utils/x-solid.svg" alt="fechar modal" onclick="closeModal()">
     </header>
     <section>
       <div onclick="closeSuggestions()">
@@ -107,8 +119,8 @@
       $('.slider').slick({
         infinite: false,
         speed: 300,
-        slidesToShow: 4,
-        slidesToScroll: 4,
+        slidesToShow: 3,
+        slidesToScroll: 3,
         responsive: [
           {
             breakpoint: 1024,
@@ -138,6 +150,19 @@
     }
 
     $(document).ready(function() {
+      const t = localStorage.getItem("timeout");
+      if (t) {
+        clearTimeout(t);
+        localStorage.removeItem("timeout");
+      }
+
+      const s = localStorage.getItem("notice");
+      if (s) {
+        document.getElementById("notice-p").innerHTML = s;
+        document.getElementsByClassName("notice-card2")[0].style.display = "block";
+        localStorage.removeItem("notice");
+      }
+
       initializeSlick();
     });
   </script>

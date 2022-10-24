@@ -17,7 +17,7 @@ class RatingsController < ApplicationController
 
     respond_to do |format|
       if @rating.save
-        format.html { redirect_to rating_url(@rating), notice: "Rating was successfully created." }
+        format.html { redirect_to rating_url(@rating), notice: "Avaliação criada com sucesso" }
         format.json { render :show, status: :created, location: @rating }
       else
         format.html { render :index, status: :unprocessable_entity }
@@ -31,7 +31,7 @@ class RatingsController < ApplicationController
     @rating.destroy
 
     respond_to do |format|
-      format.html { redirect_to ratings_url(@ratings), notice: "Rating was successfully destroyed." }
+      format.html { redirect_to ratings_url(@ratings), notice: "Avaliação deletada com sucesso" }
       format.json { head :no_content }
     end
   end
