@@ -46,7 +46,7 @@
   }
 
   jQuery(document).ready(function(){
-    const url = 'http://www.omdbapi.com/?i=<%= @rating.imdb_id %>&apikey=7a4ec86c';
+    const url = 'https://www.omdbapi.com/?i=<%= @rating.imdb_id %>&apikey=7a4ec86c';
 
     const r = fetch(url).then(response => response.json()).then(data => {
       document.getElementsByClassName("movie-title")[0].innerText = data.Title;
