@@ -79,13 +79,18 @@
 
       if(value.length != 0) {
         const url = 'https://v2.sg.media-imdb.com/suggestion/'+ value.charAt(0) +'/'+ value +'.json';
-  
-        await $.get(url, (data) => {
-          for (let i = 0; i < 3; i++) {
-            newMovies.push(data.d[i]);
-          }
-        });
 
+        const res = await fetch(url, {
+          headers: {
+            "Access-Control-Allow-Origin": "*"
+          }
+        })
+
+        const data = await res.json();
+
+        for (let i = 0; i < 3; i++) {
+          newMovies.push(data.d[i]);
+        }
       }
 
       suggestions.innerHTML = '';
